@@ -161,13 +161,13 @@ end
 -- Collision
 ------------------------------------------------------------------------------------------------------------------------
 
-local function _hit(self, side, col)
-	if side == 'left' or side == 'right' then
+local function _hit(self, type, col)
+	if type == 'left' or type == 'right' then
 		self.vx = 0
-	elseif side == 'top' then
+	elseif type == 'top' then
 		self.jumpTimer = 0
 		self.vy = 0
-	elseif side == 'bottom' then
+	elseif type == 'bottom' then
 		local wasSlamming = self.state == 'slam'
 		self.isGrounded = true
 
@@ -183,9 +183,9 @@ local function _hit(self, side, col)
 		_checkStandingObj(self, col.other)
 
 		if wasSlamming and self.standingObj then
-
+			self.standingObj:hit('slam')
 		end
-	elseif side == 'cross' then
+	elseif type == 'cross' then
 
 	end
 end
@@ -378,7 +378,7 @@ local Player_States =
 }
 
 ------------------------------------------------------------------------------------------------------------------------
--- Main function
+-- Public interface
 ------------------------------------------------------------------------------------------------------------------------
 
 function Obj_Player(self, dt)
@@ -406,4 +406,10 @@ function Obj_Player(self, dt)
 	end
 
 	Object_Animate(self, dt)
+end
+
+function Player_Spring(vy)
+	_setInAir(Player)
+	Player.vy = vy
+	Player.jumpTimer = 0
 end

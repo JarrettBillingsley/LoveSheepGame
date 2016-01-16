@@ -1,5 +1,6 @@
 local Spring_Spritesheet = require 'gfx.spritesheet_tiles'
 local Spring_BounceVel = 40 * PER_FRAME
+local Spring_SuperBounceVel = 1.4 * Spring_BounceVel
 local Spring_BoingTime = 0.25
 local Spring_Frames
 
@@ -17,10 +18,18 @@ local function _setupFrames(self)
 	}
 end
 
+local function _hit(self, type, col)
+	if type == 'slam' and self.state == 'main' then
+		Player_Spring(-Spring_SuperBounceVel)
+		self.frame = Spring_Frames.sprung
+		self.timer = Spring_BoingTime
+	end
+end
+
 function Obj_Spring(self, dt)
-	-- BUG: player can jump off top of spring on first frame they collide with it (seems to be fixed??)
-	if(self.state == 'init') then
+	if self.state == 'init' then
 		_setupFrames(self)
+		self.hit = _hit
 		self.state = 'main'
 		self.beingStoodOn = false
 		self.y = self.y + 64
@@ -30,20 +39,17 @@ function Obj_Spring(self, dt)
 		self.timer = 0
 	end
 
-	if(self.state == 'main') then
+	if self.state == 'main' then
 		if self.timer then
 			if Timer0(self, 'timer', dt) then
 				self.frame = Spring_Frames.idle
 			end
 		end
 
-		if(self.beingStoodOn) then
-			self.beingStoodOn = false
-			Player.state = 'air'
-			Player.isInAir = true
-			Player.vy = -Spring_BounceVel
-			Player.jumpTimer = 0
-			Player.standingObj = nil
+		if self.beingStoodOn then
+			local other = self.standingObj
+			Object_StandOn(other, nil)
+			Player_Spring(-Spring_BounceVel)
 			self.frame = Spring_Frames.sprung
 			self.timer = Spring_BoingTime
 		end

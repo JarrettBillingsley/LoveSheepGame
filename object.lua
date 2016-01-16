@@ -39,6 +39,10 @@ function Object_New(type)
 end
 
 function Object_Delete(self)
+	if self.collidable then
+		Object_SetNotCollidable(self)
+	end
+
 	NumGameObjects = NumGameObjects - 1
 	GameObjects[self] = nil
 end

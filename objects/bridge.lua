@@ -57,7 +57,6 @@ function Obj_Bridge(self, dt)
 		self.y = self.y + self.vy * dt
 
 		if Object_DeleteIfOffscreen(self) then
-			Object_SetNotCollidable(self)
 			return
 		end
 	end
