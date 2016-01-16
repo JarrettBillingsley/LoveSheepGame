@@ -17,7 +17,7 @@ local function _loadObjects()
 	objects.visible = false
 
 	for _, obj in ipairs(objects.objects) do
-		if(obj.type == 'Obj_Player') then
+		if obj.type == 'Obj_Player' then
 			Player.x, Player.y = obj.x, obj.y
 		else
 			local o = _fromMapObj(obj, obj.type)
@@ -52,7 +52,7 @@ function Level_Draw(x, y, w, h)
 	_map:setDrawRange(x, y, w, h)
 	_map:draw()
 
-	if(drawCollision) then
+	if drawCollision then
 		Coll_Debug_DrawRects()
 	end
 end

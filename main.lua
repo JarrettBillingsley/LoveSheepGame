@@ -37,13 +37,13 @@ function love.update(dt)
 end
 
 function love.keypressed(key)
-	if(key == 'escape') then
+	if key == 'escape' then
 		love.event.quit()
-	elseif(key == 'space') then
+	elseif key == 'space' then
 		Player.jumpPressed = true
 	elseif key == 'down' then
 		Player.duckPressed = true
-	elseif(key == 'c') then
+	elseif key == 'c' then
 		Level_Debug_ToggleDrawCollision()
 	elseif key == 'return' then
 		Player.debugFreeze = not Player.debugFreeze

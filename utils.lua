@@ -13,7 +13,7 @@ setmetatable(_G, {
 })
 
 function Timer0(self, field, dt)
-	if(self[field] > 0) then
+	if self[field] > 0 then
 		self[field] = clamp0(self[field] - dt)
 	end
 
@@ -22,7 +22,7 @@ end
 
 function IncWrap(v, lo, hi)
 	v = v + 1
-	if(v > hi) then return lo
+	if v > hi then return lo
 	else return v end
 end
 
@@ -31,22 +31,22 @@ function RectsOverlap(x1,y1,w1,h1, x2,y2,w2,h2)
 end
 
 function clamp(v, lo, hi)
-	if(v < lo) then return lo
-	elseif(v > hi) then return hi
+	if v < lo then return lo
+	elseif v > hi then return hi
 	else return v end
 end
 
 function clamp0(v)
-	if(v < 0) then return 0
+	if v < 0 then return 0
 	else return v end
 end
 
 function clampHi(v, hi)
-	if(v > hi) then return hi
+	if v > hi then return hi
 	else return v end
 end
 
 function clampLo(v, lo)
-	if(v < lo) then return lo
+	if v < lo then return lo
 	else return v end
 end

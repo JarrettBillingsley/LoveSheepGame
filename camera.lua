@@ -22,8 +22,8 @@ function Camera_Init(color, w, h)
 end
 
 function Camera_Update(dt)
-	if(KB.isDown('e')) then cam:setScale(clamp(cam:getScale() * 1.012, 0.3333, 1)) end
-	if(KB.isDown('q')) then cam:setScale(clamp(cam:getScale() / 1.012, 0.3333, 1)) end
+	if KB.isDown('e') then cam:setScale(clamp(cam:getScale() * 1.012, 0.3333, 1)) end
+	if KB.isDown('q') then cam:setScale(clamp(cam:getScale() / 1.012, 0.3333, 1)) end
 	cam:setPosition(Player.x + Camera_ShiftX, Player.y + Camera_ShiftY)
 
 	local x1,y1, x2,y2, x3,y3, x4,y4 = cam:getVisibleCorners()
