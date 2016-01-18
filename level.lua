@@ -7,8 +7,14 @@ local function _fromMapObj(mapObj, objType)
 	local o = Object_New(objType)
 	o.x, o.y = mapObj.x, mapObj.y - TILE_SIZE
 	local tile = _map.tiles[mapObj.gid] or _map:setFlippedGID(mapObj.gid)
-	o.img = _map.tilesets[tile.tileset].image
-	o.frame = tile.quad
+
+	if tile then
+		o.img = _map.tilesets[tile.tileset].image
+		o.frame = tile.quad
+		local _, __
+		_, __, o.sprW, o.sprH = o.frame:getViewport()
+	end
+
 	return o
 end
 

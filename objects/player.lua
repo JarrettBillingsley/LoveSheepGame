@@ -11,7 +11,6 @@ local Player_CollHeightDuck  = 256 - 150
 local Player_GroundAccel     = 0.3 * PER_FRAME_2
 local Player_GroundSkidAccel = 0.8 * PER_FRAME_2
 local Player_GroundFriction  = 0.5 * PER_FRAME_2
-local Player_Gravity         = 1.0 * PER_FRAME_2
 local Player_AirAccel        = 0.5 * PER_FRAME_2
 local Player_JumpVel         = -13 * PER_FRAME
 local Player_MaxWalkVelX     =  10 * PER_FRAME
@@ -190,6 +189,14 @@ local function _hit(self, type, col)
 	end
 end
 
+local function _platformMove(self, dX, dY)
+	if self.state ~= 'ground' then
+		return
+	end
+
+	Coll_Translate(self, dX, dY)
+end
+
 local function _checkAirCollision(self, dt)
 	Coll_Translate(self, self.vx * dt, self.vy * dt)
 end
@@ -247,7 +254,7 @@ local function _groundAccel(self, dt)
 end
 
 local function _airGravity(self, dt)
-	self.vy = clamp(self.vy + Player_Gravity * dt, Player_MinVelY, Player_MaxVelY)
+	self.vy = clamp(self.vy + Gravity * dt, Player_MinVelY, Player_MaxVelY)
 end
 
 local function _airAccel(self, dt)
@@ -278,6 +285,7 @@ end
 
 local function _init(self, dt)
 	self.hit = _hit
+	self.platformMove = _platformMove
 	_setupAnimFrames(self, Player_Texture)
 	Object_SetCollidable(self, 'all', 1, 1) -- dummy size, set correctly by _setGround
 	_setGround(self)

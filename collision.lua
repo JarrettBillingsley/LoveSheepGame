@@ -47,7 +47,7 @@ local function _slopeUp(world, col, x,y,w,h, goalX, goalY, filter)
 
 		local tch, move  = col.touch, col.move
 		local sx, sy     = tch.x, tch.y
-		local r, b = x + w, y + h
+		local r, b = goalX + w, goalY + h
 		local slopeL, slopeT = col.otherRect.x, col.otherRect.y
 		local slopeR, slopeB = slopeL + col.otherRect.w, slopeT + col.otherRect.h
 
@@ -88,11 +88,11 @@ local function _slopeDn(world, col, x,y,w,h, goalX, goalY, filter)
 
 		local tch, move  = col.touch, col.move
 		local sx, sy     = tch.x, tch.y
-		local b = y + h
+		local b = goalY + h
 		local slopeL, slopeT = col.otherRect.x, col.otherRect.y
 		local slopeR, slopeB = slopeL + col.otherRect.w, slopeT + col.otherRect.h
 
-		if x <= slopeL then
+		if goalX <= slopeL then
 			sx = goalX
 			col.slope = { y = slopeT, onSlope = true }
 		elseif b > slopeB then
@@ -100,7 +100,7 @@ local function _slopeDn(world, col, x,y,w,h, goalX, goalY, filter)
 			sy = goalY
 		else
 			sx = goalX
-			local slopeY = slopeT + clamp(x - slopeL, 0, TILE_SIZE)
+			local slopeY = slopeT + clamp(goalX - slopeL, 0, TILE_SIZE)
 			col.slope = { y = slopeY }
 
 			if b > slopeY then
@@ -143,12 +143,34 @@ local function _getColType(self)
 end
 
 local function _colFilter(self, other)
+	if other.isCamBound then
+		return nil
+	end
+
 	local type = _getColType(other)
 
 	if type then
 		return _colTypeMapping[type]
 	else
 		return nil
+	end
+end
+
+local function _playerColFilter(self, other)
+	local type = _getColType(other)
+
+	if type then
+		return _colTypeMapping[type]
+	else
+		return nil
+	end
+end
+
+local function _getColFilter(self)
+	if self == Player then
+		return _playerColFilter
+	else
+		return _colFilter
 	end
 end
 
@@ -236,20 +258,22 @@ end
 
 function Coll_Translate(self, dX, dY)
 	local oldX, oldY = _world:getRect(self)
-	Coll_Move(self, oldX + dX, oldY + dY)
-end
 
-function Coll_Move(self, x, y)
-	local cols, len
-	self.x, self.y, cols, len = _world:move(self, x, y, _colFilter)
+	if _getColType(self) == 'top' and dY >= 0 then
+		self.x, self.y = oldX + dX, oldY + dY
+		_world:update(self, self.x, self.y)
+	else
+		local cols, len
+		self.x, self.y, cols, len = _world:move(self, oldX + dX, oldY + dY, _getColFilter(self))
 
-	for i = 1, len do
-		_respondToColl(self, cols[i])
+		for i = 1, len do
+			_respondToColl(self, cols[i])
+		end
 	end
 end
 
 function Coll_Check(self, dX, dY)
-	local _, __, cols, len = _world:check(self, self.x + dX, self.y + dY, _colFilter)
+	local _, __, cols, len = _world:check(self, self.x + dX, self.y + dY, _getColFilter(self))
 
 	for i = 1, len do
 		_respondToColl(self, cols[i])

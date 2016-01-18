@@ -1,4 +1,5 @@
 Player_Texture = 0
+Enemy_Texture = 0
 GameObjects = {}
 NumGameObjects = 0
 Player = 0

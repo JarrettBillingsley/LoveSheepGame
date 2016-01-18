@@ -7,7 +7,6 @@ local WiggleSpeed  = 20
 local FallTime     = 1.0
 local SagSpeed     = 0.5 * PER_FRAME
 local SagDist      = 5
-local Gravity      = 1.0 * PER_FRAME_2
 
 function Obj_Bridge(self, dt)
 	if self.state == 'init' then

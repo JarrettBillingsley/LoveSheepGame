@@ -6,7 +6,11 @@ local KB = love.keyboard
 local cam
 local prop = {collision_type = 'all'}
 local Camera_LBound, Camera_RBound, Camera_TBound, Camera_BBound =
-	{properties = prop}, {properties = prop}, {properties = prop}, {properties = prop}
+	{ properties = prop, isCamBound = true },
+	{ properties = prop, isCamBound = true },
+	{ properties = prop, isCamBound = true },
+	{ properties = prop, isCamBound = true }
+
 local Camera_ShiftX, Camera_ShiftY = 0, 0
 local Camera_L, Camera_T, Camera_W, Camera_H = 0, 0, 1, 1
 

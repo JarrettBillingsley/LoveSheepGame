@@ -12,6 +12,7 @@ local KB = love.keyboard
 function love.load()
 	GX.setDefaultFilter('nearest', 'nearest')
 	Player_Texture = GX.newImage("gfx/spritesheet_players.png")
+	Enemy_Texture = GX.newImage("gfx/enemies/enemies.png")
 	Player = Object_New('Obj_Player')
 	Level_Load("maps/welcome.lua")
 end

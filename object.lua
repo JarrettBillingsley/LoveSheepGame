@@ -29,8 +29,10 @@ function Object_New(type)
 		animFlipY = false,
 		animTimer = 0,
 		animFrame = 1,
+		animTimeScale = 1,
 		state = 'init',
-		hit = function() end
+		hit = function() end,
+		platformMove = function() end,
 	}
 
 	GameObjects[ret] = true
@@ -135,6 +137,10 @@ function Object_StandOn(self, o)
 	end
 end
 
+function Object_PlatformMove(self, dX, dY)
+	self:platformMove(dX, dY)
+end
+
 ------------------------------------------------------------------------------------------------------------------------
 -- Animation
 ------------------------------------------------------------------------------------------------------------------------
@@ -160,7 +166,7 @@ function Object_ChangeAnim(self, anim)
 end
 
 function Object_Animate(self, dt)
-	if self.animTimer > 0 and Timer0(self, "animTimer", dt) then
+	if self.animTimer > 0 and Timer0(self, "animTimer", dt * self.animTimeScale) then
 		Object_SetFrame(self, IncWrap(self.animFrame, 1, #self.anim))
 	end
 end

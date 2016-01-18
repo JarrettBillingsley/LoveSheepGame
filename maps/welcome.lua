@@ -8,7 +8,7 @@ return {
   height = 20,
   tilewidth = 128,
   tileheight = 128,
-  nextobjectid = 87,
+  nextobjectid = 101,
   backgroundcolor = { 160, 206, 249 },
   properties = {},
   tilesets = {
@@ -116,6 +116,167 @@ return {
       terrains = {},
       tilecount = 128,
       tiles = {}
+    },
+    {
+      name = "NPCs",
+      firstgid = 257,
+      tilewidth = 130,
+      tileheight = 268,
+      spacing = 0,
+      margin = 0,
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      properties = {},
+      terrains = {},
+      tilecount = 24,
+      tiles = {
+        {
+          id = 0,
+          image = "../gfx/enemies/frame1.png",
+          width = 88,
+          height = 63
+        },
+        {
+          id = 1,
+          image = "../gfx/enemies/frame5.png",
+          width = 114,
+          height = 114
+        },
+        {
+          id = 2,
+          image = "../gfx/enemies/frame9.png",
+          width = 96,
+          height = 268
+        },
+        {
+          id = 3,
+          image = "../gfx/enemies/frame14.png",
+          width = 88,
+          height = 63
+        },
+        {
+          id = 4,
+          image = "../gfx/enemies/frame18.png",
+          width = 92,
+          height = 93
+        },
+        {
+          id = 5,
+          image = "../gfx/enemies/frame23.png",
+          width = 88,
+          height = 63
+        },
+        {
+          id = 6,
+          image = "../gfx/enemies/frame27.png",
+          width = 104,
+          height = 83
+        },
+        {
+          id = 7,
+          image = "../gfx/enemies/frame31.png",
+          width = 115,
+          height = 42
+        },
+        {
+          id = 8,
+          image = "../gfx/enemies/frame35.png",
+          width = 109,
+          height = 82
+        },
+        {
+          id = 9,
+          image = "../gfx/enemies/frame39.png",
+          width = 115,
+          height = 42
+        },
+        {
+          id = 10,
+          image = "../gfx/enemies/frame43.png",
+          width = 96,
+          height = 268
+        },
+        {
+          id = 11,
+          image = "../gfx/enemies/frame47.png",
+          width = 109,
+          height = 82
+        },
+        {
+          id = 12,
+          image = "../gfx/enemies/frame51.png",
+          width = 102,
+          height = 88
+        },
+        {
+          id = 13,
+          image = "../gfx/enemies/frame55.png",
+          width = 82,
+          height = 109
+        },
+        {
+          id = 14,
+          image = "../gfx/enemies/frame59.png",
+          width = 107,
+          height = 64
+        },
+        {
+          id = 15,
+          image = "../gfx/enemies/frame63.png",
+          width = 114,
+          height = 57
+        },
+        {
+          id = 16,
+          image = "../gfx/enemies/frame67.png",
+          width = 68,
+          height = 89
+        },
+        {
+          id = 17,
+          image = "../gfx/enemies/frame72.png",
+          width = 100,
+          height = 73
+        },
+        {
+          id = 18,
+          image = "../gfx/enemies/frame76.png",
+          width = 130,
+          height = 82
+        },
+        {
+          id = 19,
+          image = "../gfx/enemies/frame81.png",
+          width = 92,
+          height = 105
+        },
+        {
+          id = 20,
+          image = "../gfx/enemies/frame86.png",
+          width = 92,
+          height = 133
+        },
+        {
+          id = 21,
+          image = "../gfx/enemies/frame89.png",
+          width = 129,
+          height = 129
+        },
+        {
+          id = 22,
+          image = "../gfx/enemies/frame93.png",
+          width = 104,
+          height = 71
+        },
+        {
+          id = 23,
+          image = "../gfx/enemies/frame97.png",
+          width = 106,
+          height = 63
+        }
+      }
     }
   },
   layers = {
@@ -412,18 +573,49 @@ return {
           properties = {}
         },
         {
-          id = 86,
+          id = 96,
           name = "",
-          type = "Obj_Box",
+          type = "Obj_Wiggler",
           shape = "rectangle",
-          x = 640,
+          x = 2048,
           y = 1792,
+          width = 96,
+          height = 268,
+          rotation = 0,
+          gid = 259,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 98,
+          name = "",
+          type = "Obj_Frog",
+          shape = "rectangle",
+          x = 2304,
+          y = 1792,
+          width = 104,
+          height = 71,
+          rotation = 0,
+          gid = 279,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 99,
+          name = "",
+          type = "Obj_Platform",
+          shape = "rectangle",
+          x = 384,
+          y = 1408,
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 161,
+          gid = 252,
           visible = true,
-          properties = {}
+          properties = {
+            ["direction"] = "ud",
+            ["distance"] = "2"
+          }
         }
       }
     }
