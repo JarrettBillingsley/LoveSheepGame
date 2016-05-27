@@ -11,7 +11,7 @@ function Obj_Box(self, dt)
 	if self.state == 'init' then
 		self.state = 'main'
 		self.hit = _hit
-		Object_SetCollidable(self, 'all', TILE_SIZE, TILE_SIZE)
+		Object_SetCollidable(self, 'all', 'statics', Coll_Flags.None, TILE_SIZE, TILE_SIZE)
 	end
 
 	if self.state == 'slammed' then

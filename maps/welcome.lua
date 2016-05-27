@@ -296,7 +296,7 @@ return {
       },
       encoding = "base64",
       compression = "zlib",
-      data = "eJxjYBgFo2AUjIJRMFRAIhBzQnEkBWpGwSiQZECkE2yYELAEYkMg1qSR2zyBmAkPJtdcZD8q0shtTAz4wxYXRjc3kApmjOJRPBgxAOEvBtc="
+      data = "eJxjYBgFo2AUjIJRMFRAIhBzQnEkBWpGweAEknS2ixMPJgQsgdgQiDVp5DZPIGbCg8k1F9mPijRyGxMD/rDFhdHNDaSCGaN4FA9GDABcSgbw"
     },
     {
       type = "tilelayer",
@@ -605,8 +605,8 @@ return {
           name = "",
           type = "Obj_Platform",
           shape = "rectangle",
-          x = 384,
-          y = 1408,
+          x = 512,
+          y = 1280,
           width = 128,
           height = 128,
           rotation = 0,

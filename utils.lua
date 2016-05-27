@@ -50,3 +50,19 @@ function clampLo(v, lo)
 	if v < lo then return lo
 	else return v end
 end
+
+function wrap(v, lo, hi)
+	local diff = hi - lo
+	while v >= hi do
+		v = v - diff
+	end
+	return v
+end
+
+function wrap0(v, hi)
+	while v >= hi do
+		v = v - hi
+	end
+
+	return v
+end

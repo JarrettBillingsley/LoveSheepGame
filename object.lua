@@ -12,27 +12,39 @@ function Object_New(type)
 
 	local ret = {
 		type = type,
+		state = 'init',
 		isObject = true,
-		collidable = false,
-		isInAir = false,
 		x = 0,
 		y = 0,
+		vx = 0,
+		vy = 0,
+
+		-- Collision
+		colType = false,
+		colLayer = false,
+		colFlags = false,
+		colCheckGround = false,
+		colIsPlatform = false,
+		isInAir = false,
 		colW = 0,
 		colH = 0,
+		hit = function() end,
+		platformMove = function() end,
+
+		-- Sprite
 		sprW = 0,
 		sprH = 0,
 		sprOffsX = 0,
 		sprOffsY = 0,
 		sprFlipX = false,
 		sprFlipY = false,
+
+		-- Animation
 		animFlipX = false,
 		animFlipY = false,
 		animTimer = 0,
 		animFrame = 1,
 		animTimeScale = 1,
-		state = 'init',
-		hit = function() end,
-		platformMove = function() end,
 	}
 
 	GameObjects[ret] = true
@@ -41,7 +53,7 @@ function Object_New(type)
 end
 
 function Object_Delete(self)
-	if self.collidable then
+	if self.colType then
 		Object_SetNotCollidable(self)
 	end
 
@@ -109,17 +121,29 @@ end
 -- Collision
 ------------------------------------------------------------------------------------------------------------------------
 
-function Object_SetCollidable(self, type, w, h)
-	self.collidable = true
-	self.colType = type
+function Object_SetCollidable(self, type, layer, flags, w, h)
+	self.colFlags = flags
 	self.colW, self.colH = w, h
-	Coll_Add(self, self.x, self.y, self.colW, self.colH)
+
+	if self.colType then
+		if self.colLayer ~= layer then
+			Coll_ChangeLayer(self, layer)
+			self.colLayer = layer
+		end
+
+		self.colType = type
+		Coll_Update(self, self.x, self.y, w, h)
+	else
+		self.colType = type
+		self.colLayer = layer
+		Coll_Add(self, self.x, self.y, self.colW, self.colH)
+	end
 end
 
 function Object_SetNotCollidable(self)
-	if self.collidable then
-		self.collidable = false
+	if self.colType then
 		Coll_Remove(self)
+		self.colType = false
 	end
 end
 
@@ -137,8 +161,32 @@ function Object_StandOn(self, o)
 	end
 end
 
+function Object_CheckStandOn(self, o)
+	if o.isObject then
+		Object_StandOn(self, o)
+	else
+		Object_StandOn(self, nil)
+	end
+end
+
 function Object_PlatformMove(self, dX, dY)
-	self:platformMove(dX, dY)
+	if self.beingStoodOn then
+		if dY < 0 then
+			self.x = self.x + dX
+			self.y = self.y + dY
+			-- self.standingObj:platformMove(dX, dY)
+			-- Coll_Translate(self, dX, dY)
+		else
+			-- Coll_Translate(self, dX, dY)
+			-- self.standingObj:platformMove(dX, dY)
+			self.x = self.x + dX
+			self.y = self.y + dY
+		end
+	else
+		-- Coll_Translate(self, dX, dY)
+		self.x = self.x + dX
+		self.y = self.y + dY
+	end
 end
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -152,7 +200,7 @@ function Object_SetFrame(self, frame)
 	self.animFlipX, self.animFlipY = f.flipX, f.flipY
 	self.sprOffsX, self.sprOffsY = f.offsX, f.offsY
 
-	if self.collidable and (self.colW ~= f.colW or self.colH ~= f.colH) then
+	if self.colType and (self.colW ~= f.colW or self.colH ~= f.colH) then
 		self.colW, self.colH = f.colW, f.colH
 		Coll_Update(self, self.x, self.y, self.colW, self.colH)
 	end

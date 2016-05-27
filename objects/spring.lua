@@ -31,11 +31,10 @@ function Obj_Spring(self, dt)
 		_setupFrames(self)
 		self.hit = _hit
 		self.state = 'main'
-		self.beingStoodOn = false
 		self.y = self.y + 64
 		self.sprW, self.sprH = TILE_SIZE, 64
 		self.sprOffsY = -64
-		Object_SetCollidable(self, 'all', TILE_SIZE, 64)
+		Object_SetCollidable(self, 'all', 'statics', Coll_Flags.None, TILE_SIZE, 64)
 		self.timer = 0
 	end
 

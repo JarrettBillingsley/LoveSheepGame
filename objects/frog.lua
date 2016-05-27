@@ -31,8 +31,8 @@ end
 local function _hit(self, type, col)
 	if type == 'bottom' then
 		if col.slope then
-			self.y = col.slope.y - self.colH - 1
-			Coll_Update(self, self.x, self.y)
+			local dY = (col.slope.y - self.colH) - self.y
+			Object_PlatformMove(self, 0, dY)
 		end
 
 		if self.state == 'jump' then
@@ -55,8 +55,8 @@ function Obj_Frog(self, dt)
 		self.jumpTimer = JumpDelay
 		self.hit = _hit
 		_setupAnimFrames(self)
-		Object_SetCollidable(self, 'all', self.sprW, self.sprH)
-		Coll_Translate(self, 0, TILE_SIZE * 16) -- put on ground
+		Object_SetCollidable(self, 'all', 'dynamics', Coll_Flags.SD, self.sprW, self.sprH)
+		Coll_Translate(self, 0, TILE_SIZE * 16) -- put on ground HERE
 	end
 
 	if self.state == 'main' then
@@ -75,21 +75,7 @@ function Obj_Frog(self, dt)
 
 	if self.state == 'jump' then
 		self.vy = self.vy + Gravity * dt
-
-		local vx, vy = self.vx * dt, self.vy * dt
-
-		if self.beingStoodOn then
-			if vy < 0 then
-				Object_PlatformMove(self.standingObj, vx, vy)
-				Coll_Translate(self, vx, vy)
-			else
-				Coll_Translate(self, vx, vy)
-				Object_PlatformMove(self.standingObj, vx, vy)
-			end
-		else
-			local y = self.y
-			Coll_Translate(self, vx, vy)
-		end
+		Object_PlatformMove(self, self.vx * dt, self.vy * dt) -- HERE
 	end
 
 	Object_Animate(self, dt)

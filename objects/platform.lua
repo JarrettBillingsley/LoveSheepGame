@@ -3,34 +3,23 @@ local Speed = 0.01 * PER_FRAME
 local Update =
 {
 	ud = function(self, dt)
-		self.phase = self.phase + Speed * dt
-
-		if self.phase >= 2 then
-			self.phase = self.phase - 2
-		end
+		self.phase = wrap0(self.phase + Speed * dt, 2)
 
 		local oldY = self.y
 		local newY = self.initialY + math.sin(self.phase * math.pi) * self.distance
 		local dY = newY - oldY
+		self.vy = dY
+		Object_PlatformMove(self, 0, dY) -- HERE
 
-		if self.beingStoodOn then
-			if dY < 0 then
-				Object_PlatformMove(self.standingObj, 0, dY)
-				Coll_Translate(self, 0, dY)
-			else
-				Coll_Translate(self, 0, dY)
-				Object_PlatformMove(self.standingObj, 0, dY)
-			end
-		else
-			Coll_Translate(self, 0, dY)
-		end
+		DBGTEXT = tostring(self.y)
 	end
 }
 
 function Obj_Platform(self, dt)
 	if self.state == 'init' then
 		self.state = 'main'
-		Object_SetCollidable(self, 'top', self.sprW, 36)
+		Object_SetCollidable(self, 'top', 'dynamics', Coll_Flags.None, self.sprW, 36)
+		self.colIsPlatform = true
 		self.direction = self.properties.direction
 		self.distance = tonumber(self.properties.distance) * TILE_SIZE
 		self.phase = 0

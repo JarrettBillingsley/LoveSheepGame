@@ -25,7 +25,7 @@ local function _loadObjects()
 	for _, obj in ipairs(objects.objects) do
 		if obj.type == 'Obj_Player' then
 			Player.x, Player.y = obj.x, obj.y
-		else
+		elseif obj.type ~= 'Obj_Frog' then
 			local o = _fromMapObj(obj, obj.type)
 			o.properties = obj.properties
 		end
@@ -52,6 +52,7 @@ end
 
 function Level_Update(dt)
 	_map:update(dt)
+	Coll_UpdateDynamics(dt)
 end
 
 function Level_Draw(x, y, w, h)

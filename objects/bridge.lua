@@ -12,7 +12,7 @@ function Obj_Bridge(self, dt)
 	if self.state == 'init' then
 		self.state = 'main'
 		self.sprW, self.sprH = TILE_SIZE, 48
-		Object_SetCollidable(self, 'top', self.sprW, self.sprH)
+		Object_SetCollidable(self, 'top', 'statics', Coll_Flags.None, self.sprW, self.sprH)
 
 		self.timer = 0
 	end

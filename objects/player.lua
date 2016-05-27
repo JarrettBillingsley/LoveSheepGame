@@ -98,18 +98,6 @@ local function _changeGroundAnim(self)
 end
 
 ------------------------------------------------------------------------------------------------------------------------
--- Helpers
-------------------------------------------------------------------------------------------------------------------------
-
-local function _checkStandingObj(self, o)
-	if o.isObject then
-		Object_StandOn(self, o)
-	else
-		Object_StandOn(self, nil)
-	end
-end
-
-------------------------------------------------------------------------------------------------------------------------
 -- State changes
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -168,18 +156,12 @@ local function _hit(self, type, col)
 		self.vy = 0
 	elseif type == 'bottom' then
 		local wasSlamming = self.state == 'slam'
-		self.isGrounded = true
 
 		if self.isInAir then
 			_setGround(self)
 		end
 
-		if col.slope then
-			self.y = col.slope.y - self.colH
-			Coll_Update(self, self.x, self.y)
-		end
-
-		_checkStandingObj(self, col.other)
+		Object_CheckStandOn(self, col.other)
 
 		if wasSlamming and self.standingObj then
 			self.standingObj:hit('slam')
@@ -190,32 +172,20 @@ local function _hit(self, type, col)
 end
 
 local function _platformMove(self, dX, dY)
-	if self.state ~= 'ground' then
-		return
+	if not self.isInAir then
+		self.x = self.x + dX
+		self.y = self.y + dY
 	end
-
-	Coll_Translate(self, dX, dY)
-end
-
-local function _checkAirCollision(self, dt)
-	Coll_Translate(self, self.vx * dt, self.vy * dt)
-end
-
-local function _checkGroundCollision(self, dt)
-	if self.vx ~= 0 then
-		Coll_Translate(self, self.vx * dt, 0)
-	end
-end
-
-local function _checkGrounded(self, dt)
-	self.isGrounded = false
-	Coll_Check(self, 0, 1)
-	return self.isGrounded
 end
 
 ------------------------------------------------------------------------------------------------------------------------
 -- Physics
 ------------------------------------------------------------------------------------------------------------------------
+
+local function _moveByVelocity(self, dt)
+	self.x = self.x + (self.vx * dt)
+	self.y = self.y + (self.vy * dt)
+end
 
 local function _groundFriction(self, dt)
 	if self.vx > 0 then
@@ -287,11 +257,12 @@ local function _init(self, dt)
 	self.hit = _hit
 	self.platformMove = _platformMove
 	_setupAnimFrames(self, Player_Texture)
-	Object_SetCollidable(self, 'all', 1, 1) -- dummy size, set correctly by _setGround
+	Object_SetCollidable(self, 'all', 'dynamics', Coll_Flags.SDCP, 1, 1) -- dummy size, set correctly by _setGround
 	_setGround(self)
-
-	Coll_Translate(self, 0, TILE_SIZE * 16) -- put on ground
+	self.y = self.y + (TILE_SIZE * 16) -- put on ground
 	self.vx, self.vy = 0, 0
+
+	self.colCheckGround = true
 
 	self.duckPressed = false
 	self.duckHeld = false
@@ -299,9 +270,6 @@ local function _init(self, dt)
 	self.jumpPressed = false
 	self.jumpHeld = false
 	self.jumpTimer = 0
-
-	self.debugFreeze = false
-	self.debugStep = false
 
 	return true
 end
@@ -313,16 +281,13 @@ local function _ground(self, dt)
 	elseif self.duckHeld then
 		_setDucked(self)
 		return true
+	elseif self.isInAir then
+		_setInAir(self)
+		return true
 	else
 		_groundAccel(self, dt)
-		_checkGroundCollision(self, dt)
-
-		if not _checkGrounded(self, dt) then
-			_setInAir(self)
-			return true
-		else
-			_changeGroundAnim(self)
-		end
+		_moveByVelocity(self, dt)
+		_changeGroundAnim(self)
 	end
 end
 
@@ -333,7 +298,7 @@ local function _air(self, dt)
 	else
 		self.jumpPressed = false -- ignore extra jump presses in midair
 		_airAccel(self, dt)
-		_checkAirCollision(self, dt)
+		_moveByVelocity(self, dt)
 
 		if self.state == 'air' then
 			Object_ChangeAnim(self, Player_Anims.jump)
@@ -348,15 +313,13 @@ local function _duck(self, dt)
 	elseif self.jumpPressed then
 		_unduck(self, _setJumping)
 		return true
+	elseif self.isInAir then
+		_unduck(self, _setInAir)
+		return true
 	else
 		self.duckPressed = false
 		_groundFriction(self, dt)
-		_checkGroundCollision(self, dt)
-
-		if not _checkGrounded(self, dt) then
-			_unduck(self, _setInAir)
-			return true
-		end
+		_moveByVelocity(self, dt)
 	end
 end
 
@@ -369,7 +332,7 @@ local function _slam(self, dt)
 		end
 	end
 
-	_checkAirCollision(self, dt)
+	_moveByVelocity(self, dt)
 
 	if self.state == 'slam' then
 		Object_ChangeAnim(self, Player_Anims.slam)
@@ -390,15 +353,6 @@ local Player_States =
 ------------------------------------------------------------------------------------------------------------------------
 
 function Obj_Player(self, dt)
-	if self.debugFreeze then
-
-		if self.debugStep then
-			self.debugStep = false
-		else
-			return
-		end
-	end
-
 	for i = 1, 1000 do
 		if i == 1000 then
 			error('Loop detected in player logic (state = ' .. self.state ..')')

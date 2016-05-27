@@ -140,7 +140,7 @@
    <property name="collidable" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMFRAIhBzQnEkBWpGwSiQZECkE2yYELAEYkMg1qSR2zyBmAkPJtdcZD8q0shtTAz4wxYXRjc3kApmjOJRPBgxAOEvBtc=
+   eJxjYBgFo2AUjIJRMFRAIhBzQnEkBWpGweAEknS2ixMPJgQsgdgQiDVp5DZPIGbCg8k1F9mPijRyGxMD/rDFhdHNDaSCGaN4FA9GDABcSgbw
   </data>
  </layer>
  <layer name="decoration" width="40" height="20">
@@ -192,7 +192,7 @@
   <object id="84" type="Obj_Spring" gid="242" x="4352" y="1536" width="128" height="128"/>
   <object id="96" type="Obj_Wiggler" gid="259" x="2048" y="1792" width="96" height="268"/>
   <object id="98" type="Obj_Frog" gid="279" x="2304" y="1792" width="104" height="71"/>
-  <object id="99" type="Obj_Platform" gid="252" x="384" y="1408" width="128" height="128">
+  <object id="99" type="Obj_Platform" gid="252" x="512" y="1280" width="128" height="128">
    <properties>
     <property name="direction" value="ud"/>
     <property name="distance" value="2"/>
