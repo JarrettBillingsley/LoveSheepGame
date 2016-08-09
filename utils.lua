@@ -1,17 +1,3 @@
-setmetatable(_G, {
-	__index = function(self, name)
-		error("attempting to get nonexistent global '" .. name .. "'")
-	end,
-
-	__newindex = function(self, name, val)
-		if type(val) ~= 'function' then
-			error("attempting to set nonexistent global '" .. name .. "'")
-		else
-			rawset(self, name, val)
-		end
-	end,
-})
-
 function Timer0(self, field, dt)
 	if self[field] > 0 then
 		self[field] = clamp0(self[field] - dt)

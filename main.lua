@@ -1,5 +1,4 @@
 require 'globals'
-require 'constants'
 require 'utils'
 require 'camera'
 require 'objects.all'

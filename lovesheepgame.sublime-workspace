@@ -16,22 +16,6 @@
 			}
 		},
 		{
-			"file": "globals.lua",
-			"settings":
-			{
-				"buffer_size": 330,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "camera.lua",
-			"settings":
-			{
-				"buffer_size": 2097,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "object.lua",
 			"settings":
 			{
@@ -48,51 +32,36 @@
 			}
 		},
 		{
-			"contents": "Searching 22 files for \"debugFreeze\"\n\nC:\\Users\\jarrett\\proj\\lovesheepgame\\main.lua:\n   82  		Level_Debug_ToggleDrawCollision()\n   83  	elseif key == 'return' then\n   84: 		Player.debugFreeze = not Player.debugFreeze\n   85  	elseif key == \"'\" then\n   86  		Player.debugStep = true\n\n2 matches in 1 file\n",
-			"settings":
-			{
-				"buffer_size": 301,
-				"line_ending": "Unix",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "level.lua",
-			"settings":
-			{
-				"buffer_size": 1438,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "collision.lua",
 			"settings":
 			{
 				"buffer_size": 11674,
 				"line_ending": "Unix"
 			}
-		},
-		{
-			"file": "objects/platform.lua",
-			"settings":
-			{
-				"buffer_size": 768,
-				"line_ending": "Unix"
-			}
 		}
 	],
-	"build_system": "",
-	"build_system_choices":
-	[
-	],
-	"build_varint": "",
+	"build_system": "Packages/User/Love.sublime-build",
 	"command_palette":
 	{
-		"height": 104.0,
-		"last_filter": "",
+		"height": 89.0,
 		"selected_items":
 		[
+			[
+				"tog hi",
+				"Highlight Duplicates: Toggle highlighting"
+			],
+			[
+				"tog",
+				"Toggle Comment"
+			],
+			[
+				"sync",
+				"Set Syntax: C"
+			],
+			[
+				"syn lua",
+				"Set Syntax: Lua"
+			],
 			[
 				"synlua",
 				"Set Syntax: Lua"
@@ -158,15 +127,11 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 528.0
+		"width": 514.0
 	},
 	"console":
 	{
-		"height": 126.0,
-		"history":
-		[
-			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
-		]
+		"height": 126.0
 	},
 	"distraction_free":
 	{
@@ -177,13 +142,22 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
-	"expanded_folders":
-	[
-		"/C/Users/jarrett/proj/lovesheepgame",
-		"/C/Users/jarrett/proj/lovesheepgame/objects"
-	],
 	"file_history":
 	[
+		"/C/Users/me/Downloads/lab3/http _pitt.edu_~mis180_lab3_.htm",
+		"/C/Sandbox/me/Boxybox/user/current/AppData/Roaming/Mozilla/Firefox/Profiles/00ma1x32.default-1424237555991/sessionstore-backups/recovery.js",
+		"/C/Users/me/proj/bump.lua/media.lua",
+		"/C/Users/me/AppData/Roaming/Sublime Text 2/Packages/Lua/Lua.tmLanguage",
+		"/C/Users/me/AppData/Roaming/Sublime Text 2/Packages/C++/C.tmLanguage",
+		"/C/Users/me/AppData/Roaming/Sublime Text 2/Packages/User/Lua.sublime-settings",
+		"/C/Users/me/proj/LoveSheepGame/camera.lua",
+		"/C/Users/me/proj/LoveSheepGame/globals.lua",
+		"/C/Users/me/proj/LoveSheepGame/level.lua",
+		"/C/Users/me/proj/LoveSheepGame/objects/platform.lua",
+		"/C/Users/me/AppData/Roaming/Sublime Text 2/Packages/User/Love.sublime-build",
+		"/C/Users/me/proj/LoveSheepGame/run.bat",
+		"/C/Users/me/AppData/Roaming/Sublime Text 2/Packages/User/C++-Croc.sublime-build",
+		"/C/Users/me/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
 		"/C/Users/jarrett/proj/lovesheepgame/ext/bump.lua",
 		"/C/Users/jarrett/proj/lovesheepgame/globals.lua",
 		"/C/Users/jarrett/proj/lovesheepgame/objects/bridge.lua",
@@ -287,7 +261,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 90.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"*.lua,-ext/*",
@@ -304,6 +278,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"coll_",
+			"coll_update",
+			"Coll_",
+			"meta.function",
 			"self.debugStep",
 			"self.debugFreeze",
 			"Player.debugStep",
@@ -427,11 +405,7 @@
 			"\n\n",
 			"Object_StandOn",
 			"beingStoodOn =",
-			"standingObj =",
-			"beingStoodOn =",
-			"beingStoodOn",
-			"Object_PlatformMove",
-			"vx"
+			"standingObj ="
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -452,13 +426,12 @@
 	"groups":
 	[
 		{
-			"selected": 7,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
 					"file": "main.lua",
-					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 2972,
@@ -468,8 +441,8 @@
 						"selection":
 						[
 							[
-								1741,
-								1741
+								77,
+								77
 							]
 						],
 						"settings":
@@ -478,73 +451,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 492.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "globals.lua",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 330,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								252,
-								252
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Lua/Lua.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "camera.lua",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2097,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								558,
-								558
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Lua/Lua.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "object.lua",
-					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 5827,
@@ -554,26 +468,25 @@
 						"selection":
 						[
 							[
-								4216,
-								4216
+								4991,
+								5002
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 2,
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1987.0,
+						"translation.y": 2128.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 2,
 					"file": "objects/player.lua",
-					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 10380,
@@ -583,105 +496,24 @@
 						"selection":
 						[
 							[
-								8305,
-								8305
+								660,
+								660
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Lua/Lua.tmLanguage",
 							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 3235.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 301,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										179,
-										190
-									],
-									[
-										204,
-										215
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								163,
-								169
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"line_numbers": false,
-							"output_tag": 1,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "level.lua",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1438,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1216,
-								1216
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Lua/Lua.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 244.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
+					"buffer": 3,
 					"file": "collision.lua",
-					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 11674,
@@ -691,8 +523,8 @@
 						"selection":
 						[
 							[
-								8331,
-								8331
+								5871,
+								5871
 							]
 						],
 						"settings":
@@ -702,39 +534,9 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3638.0,
+						"translation.y": 1532.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "objects/platform.lua",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 768,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								581,
-								581
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Lua/Lua.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -779,8 +581,6 @@
 	{
 		"height": 0.0
 	},
-	"pinned_build_system": "Packages/User/Batch File.sublime-build",
-	"project": "lovesheepgame.sublime-project",
 	"replace":
 	{
 		"height": 38.0
@@ -789,9 +589,12 @@
 	"select_file":
 	{
 		"height": 0.0,
-		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"run.",
+				"run.bat"
+			],
 			[
 				"camer",
 				"camera.lua"
@@ -994,32 +797,15 @@
 	"select_project":
 	{
 		"height": 0.0,
-		"last_filter": "",
 		"selected_items":
 		[
 		],
 		"width": 0.0
-	},
-	"select_symbol":
-	{
-		"height": 0.0,
-		"last_filter": "",
-		"selected_items":
-		[
-		],
-		"width": 0.0
-	},
-	"selected_group": 0,
-	"settings":
-	{
 	},
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
 	"side_bar_width": 227.0,
-	"status_bar_visible": true,
-	"template_settings":
-	{
-	}
+	"status_bar_visible": true
 }
